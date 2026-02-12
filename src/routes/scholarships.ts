@@ -8,7 +8,7 @@ import {
   updateScholarship,
   deleteScholarship,
   getFetchLogs,
-} from "../services/scholarshipService";
+} from "../services/scholarshipService.js";
 import { InsertScholarshipSchema } from "../types/index.js";
 
 const router = Router();
