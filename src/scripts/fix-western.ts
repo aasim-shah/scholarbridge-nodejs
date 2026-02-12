@@ -32,9 +32,13 @@ async function fixWesternScholarship() {
   // Show updated record
   const updated = await col.findOne({ _id: new mongoose.Types.ObjectId("698db07ffb4de38e76547003") });
   console.log("\n=== UPDATED RECORD ===");
-  console.log("Title:", updated.title);
-  console.log("Description:", updated.description);
-  console.log("Verified:", updated.is_verified);
+  if (updated) {
+    console.log("Title:", updated.title);
+    console.log("Description:", updated.description);
+    console.log("Verified:", updated.is_verified);
+  } else {
+    console.log("Record not found");
+  }
 
   await mongoose.disconnect();
 }
