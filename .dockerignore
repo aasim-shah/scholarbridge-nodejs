@@ -1,0 +1,28 @@
+# Dependencies
+node_modules/
+dist/
+
+# Logs
+*.log
+server.log
+
+# Environment
+.env
+.env.local
+.env.production
+
+# Database
+data/
+*.db
+*.db-*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Backups
+*.bak

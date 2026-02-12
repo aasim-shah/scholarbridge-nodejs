@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  api:
+    build: .
+    ports:
+      - "3001:3001"
+    environment:
+      - NODE_ENV=production
+      - MONGODB_URI=mongodb://mongo:27017/scholarhub
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - PORT=3001
+      - CORS_ORIGIN=http://localhost:5173
+      - CRON_SCHEDULE=0 */6 * * *
+    depends_on:
+      - mongo
+    restart: unless-stopped
+    networks:
+      - scholarhub-network
+
+  mongo:
+    image: mongo:7.0
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    restart: unless-stopped
+    networks:
+      - scholarhub-network
+
+volumes:
+  mongo-data:
+
+networks:
+  scholarhub-network:
+    driver: bridge

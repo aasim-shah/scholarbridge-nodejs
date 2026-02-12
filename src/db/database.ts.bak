@@ -1,0 +1,62 @@
+import Database from "better-sqlite3";
+import path from "path";
+import { fileURLToPath } from "url";
+import fs from "fs";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const DATA_DIR = path.join(__dirname, "..", "..", "data");
+
+// Ensure data directory exists
+if (!fs.existsSync(DATA_DIR)) {
+  fs.mkdirSync(DATA_DIR, { recursive: true });
+}
+
+const DB_PATH = path.join(DATA_DIR, "scholarships.db");
+
+const db = new Database(DB_PATH);
+
+// Enable WAL mode for better concurrent read performance
+db.pragma("journal_mode = WAL");
+db.pragma("foreign_keys = ON");
+
+// Create tables
+db.exec(`
+  CREATE TABLE IF NOT EXISTS scholarships (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    title TEXT NOT NULL,
+    organization TEXT NOT NULL,
+    country TEXT NOT NULL,
+    level TEXT NOT NULL,
+    field TEXT NOT NULL,
+    category TEXT NOT NULL,
+    deadline TEXT NOT NULL,
+    description TEXT NOT NULL,
+    link TEXT NOT NULL,
+    amount TEXT DEFAULT '',
+    currency TEXT DEFAULT 'USD',
+    is_verified INTEGER DEFAULT 0,
+    source TEXT DEFAULT '',
+    created_at TEXT DEFAULT (datetime('now')),
+    updated_at TEXT DEFAULT (datetime('now')),
+    UNIQUE(title, organization, deadline)
+  );
+
+  CREATE TABLE IF NOT EXISTS fetch_logs (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    started_at TEXT DEFAULT (datetime('now')),
+    completed_at TEXT,
+    status TEXT NOT NULL DEFAULT 'running',
+    scholarships_found INTEGER DEFAULT 0,
+    scholarships_added INTEGER DEFAULT 0,
+    error TEXT,
+    search_queries TEXT
+  );
+
+  CREATE INDEX IF NOT EXISTS idx_scholarships_country ON scholarships(country);
+  CREATE INDEX IF NOT EXISTS idx_scholarships_level ON scholarships(level);
+  CREATE INDEX IF NOT EXISTS idx_scholarships_field ON scholarships(field);
+  CREATE INDEX IF NOT EXISTS idx_scholarships_category ON scholarships(category);
+  CREATE INDEX IF NOT EXISTS idx_scholarships_deadline ON scholarships(deadline);
+`);
+
+export default db;

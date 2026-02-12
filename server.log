@@ -1,0 +1,53 @@
+[MongoDB] Connected successfully
+
+╔══════════════════════════════════════════════════════╗
+║  ScholarHub API Server                               ║
+║  Running on http://localhost:3001                    ║
+║  Environment: development                       ║
+╚══════════════════════════════════════════════════════╝
+  
+[CRON] Scheduler started with schedule: 0 */6 * * *
+[CRON] Next batches will rotate through 5 regional query sets
+[CRON] Running initial fetch on startup...
+
+════════════════════════════════════════════════════════════
+[CRON] Scholarship fetch cycle #1 started
+[CRON] Batch: 1/5
+[CRON] Queries: 4
+════════════════════════════════════════════════════════════
+::1 - GET /api/health HTTP/1.1 200 76 - 5.243 ms
+::1 - GET /api/scholarships/stats HTTP/1.1 200 107 - 582.296 ms
+::1 - GET /api/scholarships/filters HTTP/1.1 200 276 - 222.440 ms
+[OpenAI] Found 5 valid scholarships for: "current scholarships for international students in USA 2026 ..."
+::1 - GET /api/scholarships?limit=2 HTTP/1.1 200 1495 - 169.559 ms
+[OpenAI] Found 7 valid scholarships for: "UK university scholarships open for applications 2026 with o..."
+[OpenAI] Found 7 valid scholarships for: "Canada graduate and undergraduate scholarships 2026 deadline..."
+[OpenAI] Found 7 valid scholarships for: "Australia government and university scholarships 2026 for in..."
+[CRON] Found 26 scholarships from web search
+[CRON] ✓ Added 14 new scholarships (12 duplicates skipped)
+════════════════════════════════════════════════════════════
+
+::1 - GET /api/health HTTP/1.1 200 77 - 0.502 ms
+::1 - GET /api/scholarships/stats HTTP/1.1 200 125 - 76.472 ms
+::1 - GET /api/scholarships?limit=2 HTTP/1.1 200 1410 - 153.066 ms
+::1 - GET /api/scholarships?country=USA&limit=3 HTTP/1.1 200 2097 - 232.244 ms
+::1 - GET /api/health HTTP/1.1 200 77 - 0.630 ms
+::1 - GET /api/scholarships?limit=1 HTTP/1.1 200 755 - 162.565 ms
+::1 - GET /api/health HTTP/1.1 200 78 - 0.361 ms
+::1 - GET /api/scholarships/stats HTTP/1.1 200 125 - 77.293 ms
+[MongoDB] Reconnected to database
+[MongoDB] Reconnected to database
+
+════════════════════════════════════════════════════════════
+[CRON] Scholarship fetch cycle #2 started
+[CRON] Batch: 2/5
+[CRON] Queries: 4
+════════════════════════════════════════════════════════════
+[OpenAI] Found 6 valid scholarships for: "Germany DAAD scholarships and university funding 2026 open a..."
+[OpenAI] Found 8 valid scholarships for: "Netherlands Holland Scholarship and university grants 2026 d..."
+[OpenAI] Found 8 valid scholarships for: "Scandinavian countries Sweden Norway Denmark scholarships 20..."
+[OpenAI] Found 6 valid scholarships for: "France Eiffel scholarship and European university funding 20..."
+[CRON] Found 28 scholarships from web search
+[CRON] ✓ Added 27 new scholarships (1 duplicates skipped)
+════════════════════════════════════════════════════════════
+
